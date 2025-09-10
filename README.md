@@ -128,7 +128,3 @@ We use the [Kaggle Medium Blog Posts dataset](https://www.kaggle.com) as input d
 * End-to-end AI-driven content recommendation inside Greenplum
 * Scalable clustering + summarization pipeline
 * Simple interactive demo for showing the power of AI + SQL integration
-
----
-
-👉 This README is demo-ready for GitHub. Do you want me to also add a **diagram image placeholder** (e.g., `docs/architecture.png`) so readers can visualize the flow Kaggle → Greenplum → Embeddings → Clustering → Summarization → Recommendation?
