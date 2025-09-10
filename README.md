@@ -39,8 +39,9 @@ We use the [Kaggle Medium Blog Posts dataset](https://www.kaggle.com) as input d
 * **pgvector** (vector data type and similarity search)
 * **PL/Python + scikit-learn** (clustering UDFs)
 * **OpenAI API** (embeddings + cluster summarization)
-* **Python scripts**
+* **Scripts**
 
+  * `schema.sql` -> generate tables for this use case
   * `genvec.py` → generate embeddings for blog posts
   * `cluster.sql` → run KMeans clustering in-database
   * `summarize.py` → create cluster summaries with GPT
