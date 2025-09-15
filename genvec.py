@@ -1,20 +1,17 @@
-import openai
 import psycopg2
+from config import *
 #from pgvector.psycopg2 import register_vector
 
-# --- CONFIG ---
-DBNAME   = "demo"
-USER     = "gpadmin"
-HOST     = "localhost"   # or your WSL IP if connecting externally
-MODEL    = "text-embedding-3-small"  # 384 dimensions
+# --- OpenAI CLIENT ---
+client = get_openai_client()
 
 # --- DB CONNECT ---
-conn = psycopg2.connect(f"dbname={DBNAME} user={USER} host={HOST}")
+conn = psycopg2.connect(get_connection_string())
 #register_vector(conn)
 
 # --- FETCH BLOG POSTS WITHOUT EMBEDDINGS ---
 cur = conn.cursor()
-cur.execute("SELECT id, title, description FROM blog_posts WHERE embedding IS NULL limit 1000;")
+cur.execute("SELECT id, title, description FROM blog_posts WHERE embedding IS NULL limit 7000;")
 rows = cur.fetchall()
 
 print(f"Found {len(rows)} blog posts without embeddings")
@@ -22,8 +19,8 @@ print(f"Found {len(rows)} blog posts without embeddings")
 # --- GENERATE + UPDATE ---
 for row_id, title, desc in rows:
     text = f"{title}. {desc}"  # combine title + description
-    print(f"Generate for {text} with model {MODEL}")
-    response = openai.embeddings.create(model=MODEL, input=text)
+    print(f"Generate for {text} with model {EMBEDDING_MODEL}")
+    response = client.embeddings.create(model=EMBEDDING_MODEL, input=text)
     vec = response.data[0].embedding
 
     cur.execute(

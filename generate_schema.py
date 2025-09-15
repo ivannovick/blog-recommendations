@@ -1,4 +1,10 @@
---
+#!/usr/bin/env python3
+"""
+Generate schema.sql with the current EMBEDDING_DIMENSIONS from config
+"""
+from config import EMBEDDING_DIMENSIONS
+
+schema_template = """--
 -- Greenplum Database database dump
 --
 
@@ -45,7 +51,7 @@ CREATE TABLE public.blog_posts (
     title text,
     description text,
     is_verified boolean,
-    embedding public.vector(768),
+    embedding public.vector({dimensions}),
     cluster_id integer
 ) DISTRIBUTED BY (id);
 
@@ -100,3 +106,16 @@ ALTER TABLE ONLY public.blog_posts
 --
 -- Greenplum Database database dump complete
 --
+"""
+
+def generate_schema():
+    """Generate schema.sql with current embedding dimensions"""
+    schema = schema_template.replace('{dimensions}', str(EMBEDDING_DIMENSIONS))
+
+    with open('schema.sql', 'w') as f:
+        f.write(schema)
+
+    print(f"✅ Generated schema.sql with embedding dimensions: {EMBEDDING_DIMENSIONS}")
+
+if __name__ == "__main__":
+    generate_schema()

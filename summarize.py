@@ -1,23 +1,12 @@
 import psycopg2
-import os
-import openai
 from datetime import datetime
+from config import *
 
-# --- CONFIG ---
-DBNAME   = "demo"
-USER     = "gpadmin"
-HOST     = "localhost"
-MODEL    = "gpt-4o-mini"  # fast + cheap for summarization
-CLUSTER_SAMPLE_SIZE = 40
-
-openai.api_key = "YOUR_OPENAI_API_KEY"
-# Pull API key from environment
-openai.api_key = os.getenv("OPENAI_API_KEY")
-if not openai.api_key:
-    raise RuntimeError("OPENAI_API_KEY environment variable not set!")
+# --- OpenAI CLIENT ---
+client = get_openai_client()
 
 # --- CONNECT DB ---
-conn = psycopg2.connect(f"dbname={DBNAME} user={USER} host={HOST}")
+conn = psycopg2.connect(get_connection_string())
 cur = conn.cursor()
 
 # 1. Get cluster IDs
@@ -50,8 +39,8 @@ for cid in cluster_ids:
     {articles_text}
     """
 
-    response = openai.chat.completions.create(
-        model=MODEL,
+    response = client.chat.completions.create(
+        model=CHAT_MODEL,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.5
     )
