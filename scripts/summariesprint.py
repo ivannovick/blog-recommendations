@@ -1,12 +1,8 @@
 import psycopg2
-
-# --- CONFIG ---
-DBNAME   = "demo"
-USER     = "gpadmin"
-HOST     = "localhost"
+from config import *
 
 # --- CONNECT DB ---
-conn = psycopg2.connect(f"dbname={DBNAME} user={USER} host={HOST}")
+conn = psycopg2.connect(get_connection_string())
 cur = conn.cursor()
 
 # 1. Get all cluster summaries ordered by cluster_id

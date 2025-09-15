@@ -2,14 +2,10 @@ import psycopg2
 import numpy as np
 from pgvector.psycopg2 import register_vector
 from pgvector import Vector   # correct import
-
-# --- DB CONFIG ---
-DBNAME = "demo"
-USER   = "gpadmin"
-HOST   = "localhost"
+from config import *
 
 # --- DB CONNECT ---
-conn = psycopg2.connect(f"dbname={DBNAME} user={USER} host={HOST}")
+conn = psycopg2.connect(get_connection_string())
 register_vector(conn)
 cur = conn.cursor()
 

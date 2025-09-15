@@ -1,0 +1,8 @@
+openai
+psycopg2-binary
+python-dotenv
+pgvector
+numpy
+flask
+flask-cors
+scikit-learn
