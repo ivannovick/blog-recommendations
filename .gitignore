@@ -58,6 +58,10 @@ logs/
 *.sql.gz
 *.dump
 
+# CSV Data Files
+medium_post_titles.csv
+*.csv
+
 # Ignore all files in the data directory
 data/*
 

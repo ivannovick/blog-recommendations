@@ -45,7 +45,22 @@ A sophisticated **content recommendation system** powered by [VMware Tanzu Green
    pip install -r requirements.txt
    ```
 
-2. **Configure environment** (edit `.env`):
+2. **Download the dataset**:
+   ```bash
+   # Easy one-click download
+   ./download_data.sh
+   ```
+
+   *Alternative manual download*:
+   ```bash
+   # Manual download and extract
+   curl -o medium_data.csv.zip "https://storage.googleapis.com/kaggle-data-sets/748442/1294572/compressed/medium_data.csv.zip?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20250915%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250915T195945Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=2641e2acbb04a08f983895bca92680cf78ecc5a4cb273a5b78d249e3b8a780e7da9481fd482a56947908916fdaa3f66dca87644ebc4f3d20a93d16ba18ecd865a60db000af100e0c328a7f028dc30700c23a9fccc34027d187402393331624ca3e45fc5b9d64cdf9dbe84f7774e0bdfcbbff28f1dd12ee662ff112d0fc082776d8b5b57cf5f69892887b03a71a742565f8d79c7149cedb9530e96a4c9bab8ec051d9505105b7c56da4ba145bcea0f9df48e80dae9f6c0e241fe741a119f9c01206974f8c36a5c123be324428df89be0f0024ea7d52e374409e15529a75ae4e70da7ee756a18b3eb8da6b18a9abb3b5515c8afffa81c753301a711947a4005107"
+   unzip medium_data.csv.zip
+   mv medium_data.csv medium_post_titles.csv
+   rm medium_data.csv.zip
+   ```
+
+3. **Configure environment** (edit `.env`):
    ```bash
    # Database Configuration
    GP_HOST=localhost
@@ -63,7 +78,7 @@ A sophisticated **content recommendation system** powered by [VMware Tanzu Green
    WEB_PORT=8081
    ```
 
-3. **Run the complete demo**:
+4. **Run the complete demo**:
    ```bash
    ./run_demo.sh
    ```
